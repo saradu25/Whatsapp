@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "80664457031",
+    "project_id": "whatsapp-50cce",
+    "storage_bucket": "whatsapp-50cce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80664457031:android:541d6fa30a2ab5a51ae662",
+        "android_client_info": {
+          "package_name": "br.edu.ifsp.dmo.whatsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmD7r-vj-obH8JpIG09WFEISyQjzElkco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
