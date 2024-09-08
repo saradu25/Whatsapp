@@ -43,7 +43,7 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation(platform("com.google.firebase:firebase-analytics-ktx:22.1.0"))
-    implementation(platform("com.google.firebase:firebase-auth-ktx:23.0.0"))
+    implementation(libs.firebase.auth.ktx)
     implementation(platform("com.google.firebase:firebase-firestore-ktx:25.1.0"))
     implementation(platform("com.google.firebase:firebase-storage-ktx:21.0.0"))
 
