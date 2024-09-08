@@ -60,15 +60,15 @@ class CadastroActivity : AppCompatActivity() {
         }.addOnFailureListener{ erro ->
             try{
                 throw erro
-            }catch(erroCredenciaisInvalidas: FirebaseAuthInvalidCredentialsException){
-                erroCredenciaisInvalidas.printStackTrace()
-                exibirMensagem("E-mail inváido, digite um outro e-mail!")
-            }catch (erroUsuarioExistente: FirebaseAuthUserCollisionException){
-                erroUsuarioExistente.printStackTrace()
-                exibirMensagem("E-mail já pertence a outro usuario!")
             }catch(erroSenhaFraca: FirebaseAuthWeakPasswordException){
                 erroSenhaFraca.printStackTrace()
                 exibirMensagem("Senha fraca, digite uma mais forte usando letras, numeros e caracteres especiais.")
+            }catch (erroUsuarioExistente: FirebaseAuthUserCollisionException){
+                erroUsuarioExistente.printStackTrace()
+                exibirMensagem("E-mail já pertence a outro usuario!")
+            }catch(erroCredenciaisInvalidas: FirebaseAuthInvalidCredentialsException){
+                erroCredenciaisInvalidas.printStackTrace()
+                exibirMensagem("E-mail inváido, digite um outro e-mail!")
             }
 
         }
