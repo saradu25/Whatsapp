@@ -1,14 +1,9 @@
-package br.edu.ifsp.dmo.whatsapp
+package br.edu.ifsp.dmo.whatsapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import br.edu.ifsp.dmo.whatsapp.databinding.ActivityCadastroBinding
-import br.edu.ifsp.dmo.whatsapp.databinding.ActivityLoginBinding
 import br.edu.ifsp.dmo.whatsapp.model.Usuario
 import br.edu.ifsp.dmo.whatsapp.utils.exibirMensagem
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -96,7 +90,7 @@ class CadastroActivity : AppCompatActivity() {
                 exibirMensagem("Cadastro efetuado com sucesso!")
 
                 startActivity(
-                    Intent(applicationContext,MainActivity::class.java)
+                    Intent(applicationContext, MainActivity::class.java)
                 )
 
             }.addOnFailureListener{

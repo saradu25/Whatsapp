@@ -1,4 +1,4 @@
-package br.edu.ifsp.dmo.whatsapp
+package br.edu.ifsp.dmo.whatsapp.activities
 
 import android.os.Build
 import android.os.Bundle
@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import br.edu.ifsp.dmo.whatsapp.databinding.ActivityPerfilBinding
-import br.edu.ifsp.dmo.whatsapp.databinding.ActivityCadastroBinding
 import br.edu.ifsp.dmo.whatsapp.utils.exibirMensagem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

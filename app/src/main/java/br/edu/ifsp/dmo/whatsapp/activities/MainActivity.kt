@@ -1,21 +1,16 @@
-package br.edu.ifsp.dmo.whatsapp
+package br.edu.ifsp.dmo.whatsapp.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Adapter
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import br.edu.ifsp.dmo.whatsapp.R
 import br.edu.ifsp.dmo.whatsapp.adapters.ViewPagerAdapter
-import br.edu.ifsp.dmo.whatsapp.databinding.ActivityCadastroBinding
 import br.edu.ifsp.dmo.whatsapp.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 
@@ -81,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     when(menuItem.itemId){
                         R.id.item_perfil -> {
-                            startActivity(Intent(applicationContext,PerfilActivity::class.java))
+                            startActivity(Intent(applicationContext, PerfilActivity::class.java))
                         }
                         R.id.item_sair -> {
                             deslogarUsuario()

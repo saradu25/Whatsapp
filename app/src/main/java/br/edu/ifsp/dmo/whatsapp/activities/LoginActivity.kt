@@ -1,14 +1,9 @@
-package br.edu.ifsp.dmo.whatsapp
+package br.edu.ifsp.dmo.whatsapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import br.edu.ifsp.dmo.whatsapp.databinding.ActivityLoginBinding
-import br.edu.ifsp.dmo.whatsapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import br.edu.ifsp.dmo.whatsapp.utils.exibirMensagem
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
