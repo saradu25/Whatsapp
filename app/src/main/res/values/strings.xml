@@ -9,4 +9,6 @@
     <string name="digite_a_sua_senha">Digite a sua senha</string>
     <string name="digite_o_seu_e_mail">Digite o seu e-mail</string>
     <string name="logo_whatsapp">Logo whatsapp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
