@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.storage.ktx)
+    implementation("com.squareup.picasso:picasso:2.8")
 
 
     implementation(libs.androidx.core.ktx)

@@ -9,16 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import br.edu.ifsp.dmo.whatsapp.databinding.ActivityPerfilBinding
+import br.edu.ifsp.dmo.whatsapp.databinding.ActivityCadastroBinding
 import br.edu.ifsp.dmo.whatsapp.utils.exibirMensagem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 class PerfilActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityPerfilBinding.inflate( layoutInflater )
     }
+
     private var temPermissaoCamera = false
     private var temPermissaoGaleria = false
 
@@ -28,6 +31,10 @@ class PerfilActivity : AppCompatActivity() {
 
     private val storage by lazy {
         FirebaseStorage.getInstance()
+    }
+
+    private val firestore by lazy {
+        FirebaseFirestore.getInstance()
     }
 
     private val gerenciadorGaleria = registerForActivityResult(
@@ -41,7 +48,53 @@ class PerfilActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView( binding.root )
+        inicializarToolbar()
+        solicitarPermissoes()
+        inicializarEventosClique()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        recuperarDadosIniciaisUsuarios()
+    }
+
+    private fun recuperarDadosIniciaisUsuarios() {
+        val idUsuario = firebaseAuth.currentUser?.uid
+        if( idUsuario != null ){
+
+            firestore
+                .collection("usuarios")
+                .document( idUsuario )
+                .get()
+                .addOnSuccessListener { documentSnapshot ->
+
+                    val dadosUsuarios = documentSnapshot.data
+                    if( dadosUsuarios != null ){
+
+                        val nome = dadosUsuarios["nome"] as String
+                        val foto = dadosUsuarios["foto"] as String
+
+                        binding.editNomePerfil.setText( nome )
+                        if( foto.isNotEmpty() ){
+                            Picasso.get()
+                                .load( foto )
+                                .into( binding.imagePerfil )
+                        }
+
+                    }
+
+                }
+
+        }
+
+    }
+
+
     private fun uploadImagemStorage(uri: Uri) {
+
         val idUsuario = firebaseAuth.currentUser?.uid
         if(idUsuario != null) {
 
@@ -54,19 +107,37 @@ class PerfilActivity : AppCompatActivity() {
                 .addOnSuccessListener { task ->
 
                     exibirMensagem("Upload de imagem com sucesso!")
+                    task.metadata
+                        ?.reference
+                        ?.downloadUrl
+                        ?.addOnSuccessListener { url ->
+                            val dados = mapOf(
+                                "foto" to url.toString()
+                            )
+                            atualizarDadosPerfil(idUsuario, dados)
+                        }
                 }.addOnFailureListener{
                     exibirMensagem("ERROR: Upload de imagem falhou.")
                 }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView( binding.root )
-        inicializarToolbar()
-        solicitarPermissoes()
-        inicializarEventosClique()
+    private fun atualizarDadosPerfil(idUsuario: String, dados: Map<String, String>) {
+
+        firestore
+            .collection("usuarios")
+            .document( idUsuario )
+            .update( dados )
+            .addOnSuccessListener {
+                exibirMensagem("Sucesso ao atualizar perfil!")
+            }
+            .addOnFailureListener {
+                exibirMensagem("Erro ao atualizar perfil")
+            }
+
     }
+
+
 
     private fun inicializarEventosClique() {
 
@@ -77,6 +148,25 @@ class PerfilActivity : AppCompatActivity() {
                 exibirMensagem("Não tem permissão para acessar galeria")
                 solicitarPermissoes()
             }
+        }
+
+        binding.btnAtualizarPerfil.setOnClickListener {
+
+            val nomeUsuario = binding.editNomePerfil.text.toString()
+            if( nomeUsuario.isNotEmpty() ){
+
+                val idUsuario = firebaseAuth.currentUser?.uid
+                if( idUsuario != null ){
+                    val dados = mapOf(
+                        "nome" to nomeUsuario
+                    )
+                    atualizarDadosPerfil( idUsuario, dados )
+                }
+
+            }else{
+                exibirMensagem("Preencha o nome para atualizar")
+            }
+
         }
 
     }
