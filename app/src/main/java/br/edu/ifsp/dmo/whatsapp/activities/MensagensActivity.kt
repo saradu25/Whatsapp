@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.edu.ifsp.dmo.whatsapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -182,18 +183,28 @@ class MensagensActivity : AppCompatActivity() {
 
     private fun inicializarToolbar() {
         val toolbar = binding.tbMensagens
-        setSupportActionBar( toolbar )
+        setSupportActionBar(toolbar)
         supportActionBar?.apply {
             title = ""
-            if( dadosDestinatario != null ){
+            if (dadosDestinatario != null) {
                 binding.textNome.text = dadosDestinatario!!.nome
-                Picasso.get()
-                    .load(dadosDestinatario!!.foto)
-                    .into( binding.imageFotoPerfil )
+
+                // Verificar si la URL de la foto no está vacía o es null
+                if (!dadosDestinatario!!.foto.isNullOrEmpty()) {
+                    Picasso.get()
+                        .load(dadosDestinatario!!.foto)
+                        .placeholder(R.drawable.placeholder_image) // Imagen temporal mientras carga
+                        .error(R.drawable.error_image)              // Imagen en caso de error
+                        .into(binding.imageFotoPerfil)
+                } else {
+                    // Si la foto es null o vacía, mostrar una imagen por defecto
+                    binding.imageFotoPerfil.setImageResource(R.drawable.placeholder_image)
+                }
             }
             setDisplayHomeAsUpEnabled(true)
         }
     }
+
 
     private fun recuperarDadosUsuarios() {
 
